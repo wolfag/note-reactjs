@@ -1,6 +1,7 @@
 const styles = (theme) => ({
   taskboard: {
     display: 'flex',
+    flexDirection: 'column',
     alignItems: 'center',
   },
   shape: {
