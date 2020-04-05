@@ -2,48 +2,23 @@ import { Button, Grid, withStyles } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import TaskForm from '../../components/TaskForm';
 import TaskList from '../../components/TaskList';
 import { STATUS } from '../../constants';
 import styles from './styles';
-
-const listTask = [
-  {
-    id: 1,
-    title: 'Read book',
-    description: 'read book',
-    status: 0,
-  },
-  {
-    id: 2,
-    title: 'Read book2',
-    description: 'read book',
-    status: 1,
-  },
-  {
-    id: 3,
-    title: 'Read book3',
-    description: 'read book',
-    status: 2,
-  },
-  {
-    id: 4,
-    title: 'Read book4',
-    description: 'read book',
-    status: 2,
-  },
-  {
-    id: 5,
-    title: 'Read book5',
-    description: 'read book',
-    status: 0,
-  },
-];
+import * as taskAction from '../../actions/task';
 
 class Taskboard extends Component {
   state = {
     visibleTaskForm: false,
   };
+
+  componentDidMount() {
+    const { taskActionCreator } = this.props;
+    taskActionCreator.fetchListTaskRequest();
+  }
 
   handleCloseTaskForm = () => {
     this.setState({ visibleTaskForm: false });
@@ -60,6 +35,7 @@ class Taskboard extends Component {
   };
 
   renderBoard() {
+    const { listTask } = this.props;
     let xhml = null;
     xhml = (
       <Grid container spacing={2}>
@@ -99,6 +75,23 @@ class Taskboard extends Component {
 
 Taskboard.propTypes = {
   classes: PropTypes.object,
+  taskActionCreator: PropTypes.shape({
+    fetchListTaskRequest: PropTypes.func,
+  }),
+  listTask: PropTypes.array,
 };
 
-export default withStyles(styles)(Taskboard);
+const mapStateToProps = (state) => {
+  return {
+    listTask: state.task.list,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    taskActionCreator: bindActionCreators(taskAction, dispatch),
+  };
+};
+
+export default withStyles(styles)(
+  connect(mapStateToProps, mapDispatchToProps)(Taskboard)
+);
