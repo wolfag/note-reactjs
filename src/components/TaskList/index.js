@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { withStyles, Grid, Box } from '@material-ui/core';
-
-import styles from './styles';
+import { Box, Grid, withStyles } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import React, { PureComponent } from 'react';
 import TaskItem from '../TaskItem';
+import styles from './styles';
 
-class TaskList extends Component {
+class TaskList extends PureComponent {
   render() {
     const { classes, tasks, status } = this.props;
     return (
@@ -13,13 +13,19 @@ class TaskList extends Component {
           <div className={classes.status}>{status.label.toUpperCase()}</div>
         </Box>
         <div className={classes.wraperListTask}>
-          {tasks.map((task) => {
-            return <TaskItem key={task.id} status={status.value} task={task} />;
-          })}
+          {tasks.map((task) => (
+            <TaskItem key={task.id} status={status.value} task={task} />
+          ))}
         </div>
       </Grid>
     );
   }
 }
+
+TaskList.propTypes = {
+  classes: PropTypes.object,
+  tasks: PropTypes.array,
+  status: PropTypes.object,
+};
 
 export default withStyles(styles)(TaskList);

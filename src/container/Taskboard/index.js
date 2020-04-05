@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import { withStyles, Grid, Button } from '@material-ui/core';
+import { Button, Grid, withStyles } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-
-import styles from './styles';
-import { STATUS } from '../../constants';
-import TaskList from '../../components/TaskList';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import TaskForm from '../../components/TaskForm';
+import TaskList from '../../components/TaskList';
+import { STATUS } from '../../constants';
+import styles from './styles';
 
 const listTask = [
   {
@@ -63,7 +63,7 @@ class Taskboard extends Component {
     let xhml = null;
     xhml = (
       <Grid container spacing={2}>
-        {STATUS.map((status, index) => {
+        {STATUS.map((status) => {
           const tasks = listTask.filter((t) => t.status === status.value);
           return <TaskList key={status.value} tasks={tasks} status={status} />;
         })}
@@ -80,9 +80,10 @@ class Taskboard extends Component {
       <div className={classes.taskboard}>
         <Button
           onClick={this.openTaskForm}
-          variant='contained'
-          color='primary'
-          className={classes.btn}>
+          variant="contained"
+          color="primary"
+          className={classes.btn}
+        >
           <AddIcon /> New task
         </Button>
         {this.renderBoard()}
@@ -95,5 +96,9 @@ class Taskboard extends Component {
     );
   }
 }
+
+Taskboard.propTypes = {
+  classes: PropTypes.object,
+};
 
 export default withStyles(styles)(Taskboard);

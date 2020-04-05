@@ -1,24 +1,25 @@
-import React, { Component } from 'react';
 import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
   Button,
-  withStyles,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   TextField,
+  withStyles,
 } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import React, { PureComponent } from 'react';
 import styles from './styles';
 
-class TaskForm extends Component {
+class TaskForm extends PureComponent {
   render() {
-    const { visible, onClose, onOk, classes } = this.props;
+    const { visible, onClose, onOk } = this.props;
     return (
       <Dialog open={visible} onClose={onClose}>
         <DialogTitle>New task</DialogTitle>
         <DialogContent>
-          <TextField label='Name' margin='normal' />
-          <TextField label='Description' multiline margin='normal' />
+          <TextField label="Name" margin="normal" />
+          <TextField label="Description" multiline margin="normal" />
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose}>Close</Button>
@@ -28,5 +29,11 @@ class TaskForm extends Component {
     );
   }
 }
+
+TaskForm.propTypes = {
+  visible: PropTypes.bool,
+  onClose: PropTypes.func,
+  onOk: PropTypes.func,
+};
 
 export default withStyles(styles)(TaskForm);
