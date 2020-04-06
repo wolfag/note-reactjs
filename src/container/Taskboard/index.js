@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import * as taskAction from '../../actions/task';
 import TaskForm from '../../components/TaskForm';
 import TaskList from '../../components/TaskList';
 import { STATUS } from '../../constants';
 import styles from './styles';
-import * as taskAction from '../../actions/task';
 
 class Taskboard extends Component {
   state = {
@@ -40,7 +40,8 @@ class Taskboard extends Component {
     xhml = (
       <Grid container spacing={2}>
         {STATUS.map((status) => {
-          const tasks = listTask.filter((t) => t.status === status.value);
+          const tasks =
+            listTask && listTask.filter((t) => t.status === status.value);
           return <TaskList key={status.value} tasks={tasks} status={status} />;
         })}
       </Grid>

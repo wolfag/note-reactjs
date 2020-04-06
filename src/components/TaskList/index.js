@@ -13,9 +13,10 @@ class TaskList extends PureComponent {
           <div className={classes.status}>{status.label.toUpperCase()}</div>
         </Box>
         <div className={classes.wraperListTask}>
-          {tasks.map((task) => (
-            <TaskItem key={task.id} status={status.value} task={task} />
-          ))}
+          {tasks &&
+            tasks.map((task) => (
+              <TaskItem key={task.id} status={status.value} task={task} />
+            ))}
         </div>
       </Grid>
     );
