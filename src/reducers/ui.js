@@ -7,7 +7,7 @@ const initState = {
 const reducer = (state = initState, action) => {
   switch (action.type) {
     case uiTypes.SET_LOADING:
-      return { ...state, loading: action.payload };
+      return { ...state, loading: action.payload.status };
     default:
       return state;
   }

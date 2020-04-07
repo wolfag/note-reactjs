@@ -1,4 +1,4 @@
-import { take, fork, call, put, delay } from 'redux-saga/effects';
+import { take, fork, call, put, delay, takeLatest } from 'redux-saga/effects';
 import * as taskTypes from '../constants';
 import * as taskApis from '../apis/task';
 import * as taskActions from '../actions/task';
@@ -20,8 +20,19 @@ function* watchFetchListTaskAction() {
   }
 }
 
+function* filterTask(action) {
+  try {
+    yield delay(500);
+    const response = yield call(taskApis.filter, action.payload.keyword);
+    yield put(taskActions.filterTaskSuccess(response));
+  } catch (error) {
+    yield put(taskActions.filterTaskFail(error));
+  }
+}
+
 function* rootSaga() {
   yield fork(watchFetchListTaskAction);
+  yield takeLatest(taskTypes.FILTER_TASK, filterTask);
 }
 
 export default rootSaga;

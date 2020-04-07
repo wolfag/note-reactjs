@@ -6,3 +6,7 @@ const url = 'tasks';
 export const getList = () => {
   return Axios.get(`${API_ENDPOINT}/${url}`);
 };
+
+export const filter = (keyword) => {
+  return Axios.get(`${API_ENDPOINT}/${url}?q=${keyword}`);
+};

@@ -22,6 +22,15 @@ const reducer = (state = initState, action) => {
       return {
         ...state,
       };
+    case taskTypes.FILTER_TASK_SUCCESS:
+      return {
+        ...state,
+        list: action.payload.data,
+      };
+    case taskTypes.FILTER_TASK_FAIL:
+      return {
+        ...state,
+      };
     default:
       return state;
   }

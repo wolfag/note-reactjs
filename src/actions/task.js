@@ -34,3 +34,18 @@ export const fetchListTaskFail = (error) => {
 //       });
 //   };
 // };
+
+export const filterTask = (keyword) => ({
+  type: taskTypes.FILTER_TASK,
+  payload: { keyword },
+});
+
+export const filterTaskSuccess = (data) => ({
+  type: taskTypes.FILTER_TASK_SUCCESS,
+  payload: { data },
+});
+
+export const filterTaskFail = (error) => ({
+  type: taskTypes.FILTER_TASK_FAIL,
+  payload: { error },
+});

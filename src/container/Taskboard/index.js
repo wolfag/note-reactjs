@@ -9,6 +9,7 @@ import TaskForm from '../../components/TaskForm';
 import TaskList from '../../components/TaskList';
 import { STATUS } from '../../constants';
 import styles from './styles';
+import SearchBox from '../../components/SearchBox';
 
 class Taskboard extends Component {
   state = {
@@ -33,6 +34,11 @@ class Taskboard extends Component {
     this.setState({
       visibleTaskForm: true,
     });
+  };
+
+  handleFilter = (event) => {
+    const { taskActionCreator } = this.props;
+    taskActionCreator.filterTask(event.target.value);
   };
 
   renderBoard() {
@@ -64,6 +70,7 @@ class Taskboard extends Component {
         >
           <AddIcon /> New task
         </Button>
+        <SearchBox onChange={this.handleFilter} />
         {this.renderBoard()}
         <TaskForm
           visible={visibleTaskForm}
@@ -80,6 +87,7 @@ Taskboard.propTypes = {
   taskActionCreator: PropTypes.shape({
     fetchListTaskRequest: PropTypes.func,
     fetchListTask: PropTypes.func,
+    filterTask: PropTypes.func,
   }),
   listTask: PropTypes.array,
 };
